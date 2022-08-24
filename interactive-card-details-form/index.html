@@ -10,283 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
   <title>Frontend Mentor | Interactive card details form</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    *{
-      padding: 0;
-      margin: 0;
-    }
-    body{
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-
-    .container{
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header{
-      position: relative;
-    }
-    .bgMain{
-      width: auto;
-    }
-    .cardBack{
-      background-image: url(./images/bg-card-back.png);
-      background-repeat: no-repeat;
-      background-position:center center;
-      background-size: cover;
-      position: absolute;
-      right: 1rem;
-      top: 2rem;
-      width: 277px;
-      height: 157px;
-      border-radius: 8px;
-    }
-    .cardBackInfo{
-      position: relative;
-    }
-    .cardBackInfo p{
-      position: absolute;
-      right: 2.5rem;
-      top: 4.5rem;
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.844);
-      letter-spacing: 1px;
-    }
-    .cardFront{
-      background-image: url(./images/bg-card-front.png);
-      background-repeat: no-repeat;
-      background-position:center center;
-      background-size: cover;
-      padding: 1.2rem;
-      width: 277px;
-      height: 157px;
-      box-sizing: border-box;
-      border-radius: 8px;
-      position: absolute;
-      left: 1rem;
-      bottom: -2rem;
-    }
-    .cardFrontInfo{
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-    .cardFrontLogo{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .circleFull{
-      background-color: white;
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-    }
-    .circleHollow{
-      border: 1px solid white;
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-    }
-    .cardFrontDetails{
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      color: white;
-    }
-    .cardFrontDetails > p{
-      font-weight: 500;
-      font-size: 1rem;
-      width: 100%;
-      letter-spacing: 3px;
-    }
-    .cardFrontDetails >span{
-      display: flex;
-      justify-content: space-between;
-    }
-    .cardFrontDetails >span p{
-      text-transform: uppercase;
-      font-weight: 400;
-      font-size: 10px;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.952);
-    }
-
-    form{
-      padding: 1.5rem;
-      padding-top: 5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.4rem;
-    }
-
-    .input{
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .input label{
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      font-weight: 500;
-    }
-    .input input{
-      font-size: 1rem;
-      padding: 10px;
-      outline: none;
-      border: 1px solid rgb(231, 231, 231);
-      border-radius: 8px;
-    }
-    .input input::placeholder{
-      color: lightgrey;
-      font-weight: 500;
-      letter-spacing: 1px;
-    }
-    .input3{
-      display: flex;
-      flex-direction: row;
-      gap: 14px;
-      width: 100%;
-    }
-
-    .input3 input{
-      width:  40%;
-    }
-
-    .input .dateContainer{
-      display: flex;
-      gap: 8px;
-    }
-    .dateContainer{
-      width: 100%;
-    }
-    .input3-2 {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .dateContainer input{
-      width: 30%;
-    }
-    .input3-2 input{
-      width: 80%;
-      max-width: fit-content;
-      min-width: fit-content;
-    }
-
-    form button{
-      font-size: 16px;
-      font-weight: 300;
-      color: white;
-      outline: none;
-      border: none;
-      background: hsl(278, 68%, 11%);
-      padding: 15px;
-      letter-spacing: 1px;
-      border-radius: 10px;
-    }
-
-    @media screen and (min-width:1362px) {
-      .container{
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        background-image: url(./images/bg-main-desktop.png);
-        background-repeat: no-repeat;
-        height: 100vh;
-      }
-      .header img{
-        display: none;
-      }
-      .cardBack{
-        right: 1rem;
-        width: 427px;
-        height: 250px;
-      }
-      .cardFront{
-        left: -35rem;
-        bottom: 0rem;
-        width: 427px;
-        height: 250px;
-        padding: 1.5rem;
-      }
-    .cardBackInfo p{
-      right: 3rem;
-      top: 7.1rem;
-      font-size: 16px;
-      letter-spacing: 1px;
-    }
-    .cardFrontInfo{
-      gap: 4rem;
-    }
-    .cardFrontLogo{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .circleFull{
-      height: 40px;
-      width: 40px;
-    }
-    .circleHollow{
-      height: 15px;
-      width: 15px;
-    }
-    .cardFrontDetails{
-      gap: 1.5rem;
-    }
-    .cardFrontDetails > p{
-      font-size: 1.8rem;
-    }
-    .cardFrontDetails >span{
-      display: flex;
-      justify-content: space-between;
-    }
-    .cardFrontDetails >span p{
-      font-size: 14px;
-    }
-
-      .formContainer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        right: 12rem;
-      }
-
-    }
-
-    @media screen and (max-width:1362px) and (min-width:375px){
-      .bgMain{
-        width: 100vw;
-        height: 275px;
-      }
-      .cardFront{
-        left: 25%;
-      }
-      .cardBack{
-        right: 25%;
-      }
-      .formContainer{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-
-    @media screen and (max-width:410px) and (min-width:375px) {
-      .bgMain{
-        width: 100vw;
-      }
-    }
-
-  </style>
+ 
 </head>
 <body>
 
@@ -295,7 +22,7 @@
       <img class="bgMain" src="./images/bg-main-mobile.png" alt="">
       <div class="cardBack">
         <div class="cardBackInfo">
-          <p>000</p>
+          <p class="cvvDummy">000</p>
         </div>
       </div>
       <div class="cardFront">
@@ -305,10 +32,14 @@
             <div class="circleHollow"></div>
           </div>
           <div class="cardFrontDetails">
-            <p>0000 0000 0000 0000</p>
+            <p class="cardNumberDummy">0000 0000 0000 0000</p>
             <span>
-              <p>Jane Appleseed</p>
-              <p>00/00</p>
+              <p class="cardHolderDummy">Jane Appleseed</p>
+              <div class="expiryMonthYear">
+                <span class="expiryMonthDummy">00</span>
+                <span>/</span>
+                <span class="expiryYearDummy">00</span>
+              </div>
             </span>
           </div>
         </div>
@@ -319,23 +50,23 @@
       <form action="submit">
         <div class="input input1">
           <label for="name">CARDHOLDER NAME</label>
-          <input type="text" placeholder="e.g. Jane Appleseed">
+          <input type="text" class="cardHolderInput" placeholder="e.g. Jane Appleseed" required>
         </div>
         <div class="input input2">
           <label for="name">CARD NUMBER</label>
-          <input type="text" placeholder="e.g. 1234 5678 9123 0000">
+          <input type="text" class="cardNumberInput" maxlength="20" placeholder="e.g. 1234 5678 9123 0000" required>
         </div>
         <div class="input3">
           <div class="input input3-1">
             <label for="name">EXP. DATE (MM/YY)</label>
             <div class="dateContainer">
-              <input type="text" placeholder="MM">
-              <input type="text" placeholder="YY">
+              <input type="number" class="expiryMonthInput" maxlength="2" min="0" placeholder="MM"  required>
+              <input type="number" class="expiryYearInput" maxlength="2" min="0" placeholder="YY"  required>
             </div>
           </div>
           <div class="input input3-2" >
             <label for="name">CVV</label>
-            <input type="number" placeholder="e.g. 123">
+            <input type="number" class="cvvInput" min="1" placeholder="e.g. 123"  required>
           </div>
         </div>
         <button type="submit">Confirm</button>
@@ -357,5 +88,39 @@
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Rishav Sharma</a>.
   </div>
+
+  <script>
+    document.querySelector(".cardNumberInput").oninput = () => {
+      document.querySelector(".cardNumberDummy").innerText = document.querySelector(".cardNumberInput").value;
+    }
+
+    document.querySelector(".cardHolderInput").oninput = () => {
+      document.querySelector(".cardHolderDummy").innerText = document.querySelector(".cardHolderInput").value;
+    }
+
+    document.querySelector(".expiryMonthInput").oninput = () => {
+      document.querySelector(".expiryMonthDummy").innerText = document.querySelector(".expiryMonthInput").value;
+    }
+
+    document.querySelector(".expiryYearInput").oninput = () => {
+      document.querySelector(".expiryYearDummy").innerText = document.querySelector(".expiryYearInput").value;
+    }
+
+    document.querySelector(".cvvInput").oninput = () => {
+      document.querySelector(".cvvDummy").innerText = document.querySelector(".cvvInput").value;
+    }
+
+    let cardNumberInput = document.querySelector(".cardNumberInput");
+    cardNumberInput.oninput = () =>{
+      let num = (cardNumberInput.value.toString()).match(/.{1,4}/g);
+      cardNumberInput.value = num.join(' ');
+    };
+
+    let dummyTxt='1234567890123456';
+    let joy=dummyTxt.match(/.{1,4}/g);
+    console.log(joy.join(' '));
+    
+    // console.log(cardNumberInput.value = cardNumberInput.match(/.{1,4}/g))
+  </script>
 </body>
 </html>
