@@ -13,6 +13,9 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
   <title>Frontend Mentor | Interactive card details form</title>
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  
 </head>
 <body>
@@ -47,29 +50,34 @@
     </div>
 
     <div class="formContainer">
-      <form action="submit">
+      <form >
         <div class="input input1">
           <label for="name">CARDHOLDER NAME</label>
-          <input type="text" class="cardHolderInput" placeholder="e.g. Jane Appleseed" required>
+          <input type="text" class="cardHolderInput" placeholder="e.g. Jane Appleseed">
+          <span class="cardHolderError">Can't be blank</span>
         </div>
         <div class="input input2">
           <label for="name">CARD NUMBER</label>
-          <input type="text" class="cardNumberInput" maxlength="20" placeholder="e.g. 1234 5678 9123 0000" required>
+          <input type="text" class="cardNumberInput" maxlength="21" minlength="18" placeholder="e.g. 1234 5678 9123 0000"> 
+          <span class="cardNumberError1">Wrong format, numbers only</span>
+          <span class="cardNumberError2">Can't be blank</span>
         </div>
         <div class="input3">
           <div class="input input3-1">
             <label for="name">EXP. DATE (MM/YY)</label>
             <div class="dateContainer">
-              <input type="number" class="expiryMonthInput" maxlength="2" min="0" placeholder="MM"  required>
-              <input type="number" class="expiryYearInput" maxlength="2" min="0" placeholder="YY"  required>
+              <input type="number" class="expiryMonthInput" maxlength="2" min="0" placeholder="MM">
+              <input type="number" class="expiryYearInput" maxlength="2" min="0" placeholder="YY">
             </div>
+            <span class="dateContainerError"> Can't be blank</span>
           </div>
           <div class="input input3-2" >
             <label for="name">CVV</label>
-            <input type="number" class="cvvInput" min="1" placeholder="e.g. 123"  required>
+            <input type="number" class="cvvInput" min="1" placeholder="e.g. 123">
+            <span class="cvvError">Can't be blank</span>
           </div>
         </div>
-        <button type="submit">Confirm</button>
+        <button  class="submitBtn">Confirm</button>
       </form>
     </div>
   </div>
@@ -90,6 +98,47 @@
   </div>
 
   <script>
+    // Checking if card number input has an alphabet
+    let cardNumberInput = document.querySelector(".cardNumberInput");
+    let cardNumberError1 = document.querySelector(".cardNumberError1");
+    let alphabets = ["a","b","c","d","e","f","g","h",'i',"j",'k',"l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A",'B',"C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+
+
+    cardNumberInput.onblur = () => {
+      // console.log("inside the function1")
+      let cardNumberInputString = cardNumberInput.value.toString();
+      let cardNumberInputArray = cardNumberInputString.split(" ").join("");
+      for(i=0; i<cardNumberInputArray.length; i++){
+        if(alphabets.includes(cardNumberInputArray[i])){
+          console.log("hello 1st if")
+          cardNumberError1.style.display = "inline-block";
+          cardNumberInput.style.border = "1px solid hsl(0, 100%, 66%)"
+        }
+      }
+    };
+
+    // Adding spaces after 4 characters in the Credit card input field
+    $('.cardNumberInput').on('keyup', function(e){
+      // get value of the input field
+      var val = $(this).val();
+      var newval = '';
+      // write regex to remove any space
+      val = val.replace(/\s/g, '');
+      // iterate through each numver
+      for(var i = 0; i < val.length; i++) {
+          // add space if modulus of 4 is 0
+          if(i%4 == 0 && i > 0) newval = newval.concat(' ');
+          // concatenate the new value
+          newval = newval.concat(val[i]);
+      }
+      // update the final value in the html input
+      $(this).val(newval);
+    });
+
+    // let dummyTxt='1234567890123456';
+    // let joy=dummyTxt.match(/.{1,4}/g);
+    // console.log(joy.join(' '));
+
     document.querySelector(".cardNumberInput").oninput = () => {
       document.querySelector(".cardNumberDummy").innerText = document.querySelector(".cardNumberInput").value;
     }
@@ -110,17 +159,57 @@
       document.querySelector(".cvvDummy").innerText = document.querySelector(".cvvInput").value;
     }
 
-    let cardNumberInput = document.querySelector(".cardNumberInput");
-    cardNumberInput.oninput = () =>{
-      let num = (cardNumberInput.value.toString()).match(/.{1,4}/g);
-      cardNumberInput.value = num.join(' ');
-    };
+    // Checking if all required fields are filled
+    let submitBtn = document.querySelector(".submitBtn");
+    submitBtn.addEventListener('click', () => {
+      event.preventDefault();
+      console.log("inside");
+      let cardHolderInput = document.querySelector(".cardHolderInput");
+      let cardNumberInput = document.querySelector(".cardNumberInput");
+      let expiryMonthInput = document.querySelector(".expiryMonthInput");
+      let expiryYearInput = document.querySelector(".expiryYearInput");
+      let cvvInput = document.querySelector(".cvvInput");
+      
+      let cardHolderError = document.querySelector(".cardHolderError");
+      let cardNumberError1 = document.querySelector(".cardNumberError1");
+      let cardNumberError2 = document.querySelector(".cardNumberError2");
+      let dateContainerError = document.querySelector(".dateContainerError");
+      let cvvError = document.querySelector(".cvvError");
 
-    let dummyTxt='1234567890123456';
-    let joy=dummyTxt.match(/.{1,4}/g);
-    console.log(joy.join(' '));
-    
-    // console.log(cardNumberInput.value = cardNumberInput.match(/.{1,4}/g))
+      if(cardHolderInput.value === ""){
+        console.log("inside cardHolder")
+        cardHolderError.style.display = "inline-block";
+        cardHolderInput.style.border = "1px solid hsl(0, 100%, 66%)"
+      }
+      else if(!cardHolderInput.value === ""){
+        cardHolderError.style.display = "none";
+        cardHolderInput.style.border = "1px solid rgb(231, 231, 231)"
+      }
+      if(cardNumberInput.value === ""){
+        console.log("inside cardHolder")
+        cardNumberError2.style.display = "inline-block";
+        cardNumberInput.style.border = "1px solid hsl(0, 100%, 66%) "
+      }
+      if(expiryMonthInput.value === ""){
+        console.log("inside cardHolder")
+        dateContainerError.style.display = "inline-block";
+        expiryMonthInput.style.border = "1px solid hsl(0, 100%, 66%) "
+      }
+      if(expiryYearInput.value === ""){
+        console.log("inside cardHolder")
+        dateContainerError.style.display = "inline-block";
+        expiryYearInput.style.border = "1px solid hsl(0, 100%, 66%) "
+      }
+      if(cvvInput.value === ""){
+        console.log("inside cvvInput");
+        cvvError.style.display = "inline-block";
+        cvvInput.style.border = "1px solid hsl(0, 100%, 66%)";
+      }
+      else{
+
+      }
+    })
+
   </script>
 </body>
 </html>
